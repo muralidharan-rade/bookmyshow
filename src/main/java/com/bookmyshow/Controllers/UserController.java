@@ -6,15 +6,18 @@ import com.bookmyshow.DTO.UserSignUpResponseDTO;
 import com.bookmyshow.Models.User;
 import com.bookmyshow.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController("/user")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
-    public UserSignUpResponseDTO signup(UserSignUpRequestDTO requestDTO) {
+    @PostMapping("/signup")
+    public UserSignUpResponseDTO signup(@RequestBody UserSignUpRequestDTO requestDTO) {
         UserSignUpResponseDTO responseDTO = new UserSignUpResponseDTO();
         try {
             User user = userService.signup(requestDTO.getName(), requestDTO.getEmail(), requestDTO.getPassword());

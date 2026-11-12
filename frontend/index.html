@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f7f8">
+  <title>BMS Studio — Venue &amp; show setup</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#" aria-label="BMS Studio home">
+        <span class="brand-mark">b.</span>
+        <span class="brand-name">BMS <span>Studio</span></span>
+      </a>
+
+      <div class="workspace-label">WORKSPACE</div>
+      <nav class="navigation" aria-label="Main navigation">
+        <a class="nav-link" href="#overview"><span class="nav-icon">⌂</span> Overview</a>
+        <a class="nav-link" href="#schedule"><span class="nav-icon">◷</span> Show schedule</a>
+        <a class="nav-link active" href="#setup"><span class="nav-icon">▦</span> Venue setup</a>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <div class="help-card">
+          <span class="help-icon">✳</span>
+          <p>Build your cinema network, one venue at a time.</p>
+        </div>
+        <div class="profile">
+          <div class="avatar">A</div>
+          <div class="profile-copy"><strong>Administrator</strong><span>Workspace owner</span></div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main-content" id="overview">
+      <header class="topbar">
+        <div class="breadcrumbs">Workspace <span>/</span> <strong>Venue setup</strong></div>
+        <div class="connection"><span class="connection-dot"></span><span id="connection-label">Checking connection</span></div>
+      </header>
+
+      <section class="page-heading" id="setup">
+        <div>
+          <div class="eyebrow">YOUR CINEMA NETWORK</div>
+          <h1>Venue setup</h1>
+          <p class="subtitle">Set up the places where the stories come to life.</p>
+        </div>
+        <div class="heading-art" aria-hidden="true"><span>✦</span><i></i><b></b></div>
+      </section>
+
+      <section class="stats-grid" aria-label="Venue totals">
+        <article class="stat-card">
+          <div class="stat-top"><span>Regions</span><span class="stat-icon pink">⌖</span></div>
+          <div class="stat-number" id="region-count">—</div>
+          <div class="stat-foot"><span class="stat-dot pink-dot"></span> Cities in your network</div>
+        </article>
+        <article class="stat-card">
+          <div class="stat-top"><span>Theatres</span><span class="stat-icon purple">▤</span></div>
+          <div class="stat-number" id="theatre-count">—</div>
+          <div class="stat-foot"><span class="stat-dot purple-dot"></span> Places to watch</div>
+        </article>
+        <article class="stat-card">
+          <div class="stat-top"><span>Screens</span><span class="stat-icon orange">▣</span></div>
+          <div class="stat-number" id="screen-count">—</div>
+          <div class="stat-foot"><span class="stat-dot orange-dot"></span> Ready for a show</div>
+        </article>
+        <article class="stat-card">
+          <div class="stat-top"><span>Shows today</span><span class="stat-icon pink">◷</span></div>
+          <div class="stat-number" id="today-show-count">—</div>
+          <div class="stat-foot"><span class="stat-dot pink-dot"></span> Scheduled for today</div>
+        </article>
+        <article class="stat-card">
+          <div class="stat-top"><span>Movies this week</span><span class="stat-icon purple">▶</span></div>
+          <div class="stat-number" id="week-movie-count">—</div>
+          <div class="stat-foot"><span class="stat-dot purple-dot"></span> On the schedule</div>
+        </article>
+      </section>
+
+      <section class="schedule-panel" id="schedule">
+        <div class="schedule-heading">
+          <div>
+            <div class="eyebrow">WHAT'S ON</div>
+            <h2>Show schedule</h2>
+            <p class="schedule-subtitle" id="schedule-range">Today and the next 6 days</p>
+          </div>
+          <div class="schedule-filters">
+            <label class="sr-only" for="schedule-region">Filter by region</label>
+            <select id="schedule-region"><option value="">All regions</option></select>
+            <label class="sr-only" for="schedule-movie">Filter by movie</label>
+            <select id="schedule-movie"><option value="">All movies</option></select>
+          </div>
+        </div>
+        <div class="week-strip" id="week-strip" aria-label="Choose a schedule date"></div>
+        <div class="day-heading">
+          <div><h3 id="selected-day-label">Today</h3><span id="selected-day-count" class="day-count"></span></div>
+          <span class="live-pill"><i></i> NEXT 7 DAYS</span>
+        </div>
+        <div id="schedule-error" class="schedule-error" role="status" hidden>
+          <span id="schedule-error-message"></span>
+          <button id="schedule-retry" class="text-button" type="button">Retry</button>
+        </div>
+        <div id="schedule-list" class="schedule-list"></div>
+        <div id="schedule-empty" class="schedule-empty" hidden>
+          <span class="schedule-empty-icon">◷</span>
+          <strong id="schedule-empty-title">No shows scheduled</strong>
+          <p id="schedule-empty-copy">Add a show to your schedule, or choose another day.</p>
+          <button id="create-show-button" class="text-button" type="button">Create a show <span>→</span></button>
+        </div>
+      </section>
+
+      <section class="setup-layout">
+        <div class="setup-panel">
+          <div class="panel-heading">
+            <div>
+              <div class="eyebrow">DATA WORKSPACE</div>
+              <h2>Create a project entity</h2>
+            </div>
+          </div>
+          <div class="panel-body entity-body">
+            <label for="entity-type">Entity type</label>
+            <select id="entity-type">
+              <option value="region">Region</option>
+              <option value="theatre">Theatre</option>
+              <option value="screen">Screen</option>
+              <option value="seat-type">Seat type</option>
+              <option value="seat">Seat</option>
+              <option value="movie">Movie</option>
+              <option value="show">Show</option>
+              <option value="show-seat-type">Show seat pricing</option>
+              <option value="show-seat">Generate show seats</option>
+              <option value="user">User</option>
+              <option value="booking">Booking</option>
+              <option value="payment">Payment</option>
+            </select>
+            <form id="entity-form" class="setup-form">
+              <div id="entity-fields"></div>
+              <button class="primary-button" type="submit">Create <span>→</span></button>
+            </form>
+            <div id="notice" class="notice" role="status" aria-live="polite"></div>
+          </div>
+        </div>
+
+        <aside class="preview-panel">
+          <div class="preview-heading"><div><div class="eyebrow">NETWORK PREVIEW</div><h2>Your venues</h2></div><span class="live-pill"><i></i> LIVE</span></div>
+          <div id="venue-list" class="venue-list"></div>
+          <div id="empty-state" class="empty-state">
+            <div class="empty-art"><span>▤</span><i>⌖</i><b>▣</b></div>
+            <strong>Your network starts here</strong>
+            <p>Add a region, then connect theatres and screens to see them here.</p>
+          </div>
+          <div class="preview-footer"><span class="footer-marker"></span> Changes are saved to your database</div>
+        </aside>
+      </section>
+      <footer class="page-footer">BMS Studio <span>·</span> Venue management</footer>
+    </main>
+  </div>
+
+</body>
+</html>

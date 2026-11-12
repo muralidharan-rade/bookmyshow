@@ -6,10 +6,11 @@ import com.bookmyshow.DTO.ResponseStatus;
 import com.bookmyshow.Models.Booking;
 import com.bookmyshow.Services.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
-// localhost:3000/booking/book
-@Controller
+@RestController("/booking")
 public class BookingController {
 
     private BookingService bookingService;
@@ -19,7 +20,8 @@ public class BookingController {
         this.bookingService = bookingService;
     }
 
-    public BookMovieResponseDTO bookMovie(BookMovieRequestDTO requestDTO) {
+    @PostMapping("/book")
+    public BookMovieResponseDTO bookMovie(@RequestBody BookMovieRequestDTO requestDTO) {
         BookMovieResponseDTO responseDTO = new BookMovieResponseDTO();
         try {
             Booking booking = bookingService.bookMovie(
